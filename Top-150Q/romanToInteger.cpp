@@ -1,0 +1,102 @@
+/*
+Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
+
+Symbol       Value
+I             1
+V             5
+X             10
+L             50
+C             100
+D             500
+M             1000
+For example, 2 is written as II in Roman numeral, just two ones added together. 12 is written as XII, which is simply X + II. The number 27 is written as XXVII, which is XX + V + II.
+
+Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not IIII. Instead, the number four is written as IV. Because the one is before the five we subtract it making four. The same principle applies to the number nine, which is written as IX. There are six instances where subtraction is used:
+
+I can be placed before V (5) and X (10) to make 4 and 9. 
+X can be placed before L (50) and C (100) to make 40 and 90. 
+C can be placed before D (500) and M (1000) to make 400 and 900
+*/
+
+#include <iostream>
+using namespace std;
+
+class Solution {
+  public:
+    int brute(string s) {
+      int result = 0;
+      for(int i = 0; i < s.size(); i++){
+        if (i + 1 < s.size() && s[i] == 'I' && (s[i + 1] == 'V' || s[i + 1] == 'X')) {
+          result -= 1;
+        } else if (i + 1 < s.size() && s[i] == 'X' && (s[i + 1] == 'L' || s[i + 1] == 'C')) {
+          result -= 10;
+        } else if (i + 1 < s.size() && s[i] == 'C' && (s[i + 1] == 'D' || s[i + 1] == 'M')) {
+          result -= 100;
+        } else {
+          switch (s[i]) {
+            case 'I': result += 1; break;
+            case 'V': result += 5; break;
+            case 'X': result += 10; break;
+            case 'L': result += 50; break;
+            case 'C': result += 100; break;
+            case 'D': result += 500; break;
+            case 'M': result += 1000; break;
+          }
+        }
+      }
+      return result;
+    }
+
+    int best(string s) {
+      int result = 0;
+      for (int i = 0; i < s.size(); i++) {
+        if (i + 1 < s.size() && (s[i] == 'I' && (s[i + 1] == 'V' || s[i + 1] == 'X')) ||
+            (s[i] == 'X' && (s[i + 1] == 'L' || s[i + 1] == 'C')) ||
+            (s[i] == 'C' && (s[i + 1] == 'D' || s[i + 1] == 'M'))) {
+          result -= (s[i] == 'I' ? 1 : s[i] == 'X' ? 10 : 100);
+        } else {
+          switch (s[i]) {
+            case 'I': result += 1; break;
+            case 'V': result += 5; break;
+            case 'X': result += 10; break;
+            case 'L': result += 50; break;
+            case 'C': result += 100; break;
+            case 'D': result += 500; break;
+            case 'M': result += 1000; break;
+          }
+        }
+      }
+      return result;
+    }
+
+    int optimal(string s) {
+      unordered_map<char, int> roman_map = {
+        {'I', 1}, {'V', 5}, {'X', 10}, {'L', 50},
+        {'C', 100}, {'D', 500}, {'M', 1000}
+      };
+
+      int result = 0;
+      for (int i = 0; i < s.size(); i++) {
+        if (i + 1 < s.size() && roman_map[s[i]] < roman_map[s[i + 1]]) {
+          result -= roman_map[s[i]];
+        } else {
+          result += roman_map[s[i]];
+        }
+      }
+      return result;
+    }
+};
+
+int main() {
+  Solution sol;
+
+  // string s = "III";
+  string s = "LVIII";
+  // string s = "MCMXCIV";
+
+  cout << "Brute sol : " << sol.brute(s) << endl;
+  cout << "Best sol : " << sol.best(s) << endl;
+  cout << "Optimal sol : " << sol.optimal(s) << endl;
+
+  return 0;
+}
