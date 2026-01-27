@@ -22,7 +22,7 @@ func nCr(n int, r int) int {
 }
 
 // Brute-Sol: O(nxnxr) time
-func (s Solution) brute(numRows int) [][]int {
+func (s *Solution) brute(numRows int) [][]int {
 	res := make([][]int, numRows)
 	for row := 0; row < numRows; row++ {
 		temp := make([]int, 0, row+1)
@@ -48,7 +48,7 @@ func generateRow(row int) []int {
 }
 
 // Optimal-Sol:
-func (s Solution) optimal(numRows int) [][]int {
+func (s *Solution) optimal(numRows int) [][]int {
 	res := make([][]int, numRows)
 	for i := 0; i < numRows; i++ {
 		res[i] = generateRow(i)

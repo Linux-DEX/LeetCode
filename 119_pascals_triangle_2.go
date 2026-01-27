@@ -22,7 +22,7 @@ func ncr(n int, r int) int {
 }
 
 // Brute-sol: O(n x r) time , O(r) space
-func (s Solution) brute(rowIndex int) []int {
+func (s *Solution) brute(rowIndex int) []int {
 	res := make([]int, rowIndex+1)
 	for c := 0; c <= rowIndex; c++ {
 		res[c] = ncr(rowIndex, c)
@@ -32,7 +32,7 @@ func (s Solution) brute(rowIndex int) []int {
 }
 
 // Optimal-sol: O(n) time , O(1) space
-func (s Solution) optimal(rowIndex int) []int {
+func (s *Solution) optimal(rowIndex int) []int {
 	res := []int{1}
 	ans := 1
 	for i := 1; i <= rowIndex; i++ {
