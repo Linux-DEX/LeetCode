@@ -3,7 +3,7 @@
 # Check if commit message is provided
 if [ -z "$1" ]; then
   echo "❌ Error: Commit message is required"
-  echo 'Usage: ./script.sh "commit message here"'
+  echo 'Usage: ./add_commit.sh "commit message here"'
   exit 1
 fi
 
