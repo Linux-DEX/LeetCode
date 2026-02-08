@@ -1,5 +1,6 @@
 package algorithms
 
+// time complexity: O(n log n)
 // MergeSort sorts a slice of integers using the merge sort algorithm.
 func MergeSort(arr []int) []int {
 	if len(arr) <= 1 {
