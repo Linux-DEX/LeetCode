@@ -25,11 +25,11 @@ func TimSort(arr []int) []int {
 			if right > n {
 				right = n
 			}
-			arr[left:right] = merge(arr[left:mid], arr[mid:right])
+			merged := Merge(arr[left:mid], arr[mid:right])
+			copy(arr[left:right], merged)
 		}
 		size *= 2
 	}
 
 	return arr
 }
-
